@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">DouBan4_B</string>
+    <string name="cannot_connected_server">cannot_connected_server</string>
+    <string name="server_internal_error">server_internal_error</string>
+    <string name="home">首页</string>
+    <string name="book">书影音</string>
+    <string name="radio">广播</string>
+    <string name="group">小组</string>
+    <string name="my">我的</string>
+</resources>

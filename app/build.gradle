@@ -1,0 +1,92 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'me.tatarka.retrolambda'
+
+
+android {
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    retrolambda {
+        javaVersion JavaVersion.VERSION_1_7
+    }
+    compileSdkVersion Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
+    buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
+
+    lintOptions {
+        abortOnError false
+        checkReleaseBuilds false
+        // 防止在发布的时候出现因MissingTranslation导致Build Failed!
+        disable 'MissingTranslation'
+    }
+    //禁止google的图片检查机制
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
+
+
+    defaultConfig {
+        applicationId "com.example.douban.douban4_b"
+        minSdkVersion project.ANDROID_BUILD_MIN_SDK_VERSION as int
+        targetSdkVersion Integer.parseInt(project.ANDROID_BUILD_TARGET_SDK_VERSION)
+        versionCode project.VERSION_CODE as int
+        versionName project.VERSION_NAME
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+        Douban {
+
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+//            buildConfigField "String", "ROOT_URL",""
+            manifestPlaceholders = [TD_CHANNEL_ID_VALUE: "Douban", label: "Douban"]
+        }
+
+        DoubanText {
+
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            manifestPlaceholders = [TD_CHANNEL_ID_VALUE: "Douban_TEST", label: "Douban测试"]
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile "com.android.support:cardview-v7:${SUPPORT_LIBRARY}"
+    compile "com.android.support:recyclerview-v7:${SUPPORT_LIBRARY}"
+    compile "com.android.support:design:${SUPPORT_LIBRARY}"
+    compile files('libs/TalkingData_Analytics_Android_SDK.jar')
+    compile files('libs/open_sdk_r5778_lite.jar')
+    compile files('libs/voaacencoder.jar')
+    compile 'com.android.support:appcompat-v7:25.0.1'
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    compile 'io.reactivex:rxandroid:1.2.0'
+    compile 'com.squareup.retrofit2:converter-scalars:2.0.0'
+    compile 'in.srain.cube:ptr-load-more:1.0.6'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'tv.danmaku.ijk.media:ijkplayer-java:0.7.9'
+    compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.7.9'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    compile 'com.orhanobut:logger:1.15'
+    compile 'com.jakewharton:butterknife:8.4.0'
+    compile 'com.leo.lu:mytitlebar:1.0.6'
+    compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    apt 'com.jakewharton:butterknife-compiler:8.4.0'
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testCompile 'junit:junit:4.12'
+}

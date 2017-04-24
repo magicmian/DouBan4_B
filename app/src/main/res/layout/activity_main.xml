@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.douban.douban4_b.ui.customeView.FragmentTabHost
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_layout"
+    android:orientation="vertical"
+    android:background="@color/app_bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0"/>
+
+        <FrameLayout
+            android:id="@+id/real_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+        <!-- tabhost上面一条黑色分割 @drawable/line_shop -->
+        <View style="@style/horizontal_line"/>
+        <!-- 调换framelayout和tabwidget的前后顺序可以分别实现tab的top和在底下的效果 -->
+        <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:divider="@null"/>
+    </LinearLayout>
+</com.example.douban.douban4_b.ui.customeView.FragmentTabHost>
+
